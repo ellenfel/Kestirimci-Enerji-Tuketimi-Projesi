@@ -39,7 +39,7 @@ SELECT id, name,  key, ts, merged_column FROM last_veri;
 
 # Execute SQL query and export the result to CSV
 export PGPASSWORD=$DB_PASS
-echo "$SQL" | psql -h localhost -U $DB_USER -d $DB_NAME -a -o veri.csv
+echo "$SQL" | psql -h localhost -U $DB_USER -d $DB_NAME -a -o /home/ellenfel/Desktop/repos/data/energy-consumption-forecast.csv
 echo "hey"
 
 # Now, you can convert the CSV to XLS if desired. For example, using `ssconvert` (from Gnumeric package):
