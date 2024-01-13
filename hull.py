@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# importing libs
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -30,3 +31,17 @@ from sklearn.ensemble import VotingClassifier
 import folium
 from folium.plugins import HeatMap
 import plotly.express as px
+
+# plotting configurations
+plt.style.use('fivethirtyeight')
+%matplotlib inline
+pd.set_option('display.max_columns', 32)
+
+# reading data
+df = pd.read_csv('../data/energy-consumption-forecast-all.csv', on_bad_lines='skip')
+
+column_index_to_rename=0
+df.rename(columns={df.columns[column_index_to_rename]: '111'}, inplace=True)
+df[['device_name', 'key', 'ts', 'telemetry']] = df['111'].str.split('|', expand=True)
+df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+df.drop('111', axis=1, inplace=True)
