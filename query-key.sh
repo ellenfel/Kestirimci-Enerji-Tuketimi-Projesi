@@ -15,7 +15,7 @@ WITH LastVeriWithRowNumber AS (
         merged_column,
         ROW_NUMBER() OVER (PARTITION BY name ORDER BY ts DESC) AS row_num
     FROM last_veri
-    WHERE key = 'energy'
+    WHERE key = 'Active Energy'
 )
 SELECT
     name,
