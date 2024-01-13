@@ -45,3 +45,10 @@ df.rename(columns={df.columns[column_index_to_rename]: '111'}, inplace=True)
 df[['device_name', 'key', 'ts', 'telemetry']] = df['111'].str.split('|', expand=True)
 df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
 df.drop('111', axis=1, inplace=True)
+
+df = df[df[df.columns[0]] != 'UG-67'] #Bidakine sqlde yap
+df.to_csv('../data/newest-clean-data.csv', index=False)
+
+
+
+
