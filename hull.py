@@ -51,4 +51,24 @@ df.to_csv('../data/newest-clean-data.csv', index=False)
 
 
 
+df = pd.read_csv('../data/newest-clean-data.csv')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
