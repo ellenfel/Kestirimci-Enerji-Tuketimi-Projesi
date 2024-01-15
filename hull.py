@@ -38,24 +38,25 @@ plt.style.use('fivethirtyeight')
 pd.set_option('display.max_columns', 32)
 
 # reading data
-df = pd.read_csv('../data/energy-consumption-forecast-all.csv', on_bad_lines='skip')
-
+df = pd.read_csv('../data/sample-set-energy-consumption-forecast-noUG-67.csv',
+                 on_bad_lines='skip', sep='|',names=["id", "device-name", "key", "ts", "value"])
+"""
 column_index_to_rename=0
 df.rename(columns={df.columns[column_index_to_rename]: '111'}, inplace=True)
 df[['device_name', 'key', 'ts', 'telemetry']] = df['111'].str.split('|', expand=True)
 df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
 df.drop('111', axis=1, inplace=True)
-
 df = df[df[df.columns[0]] != 'UG-67'] #Bidakine sqlde yap
+
+"""
 df.to_csv('../data/newest-clean-data.csv', index=False)
+df.drop('id', axis=1, inplace=True)
 
 
+unique_values = df['key'].unique()
+unique_values = [value for value in unique_values if 'error' not in str(value)]
 
-df = pd.read_csv('../data/newest-clean-data.csv')
-
-
-
-
+df = df[~df['key'].str.contains('error', case=False, na=False)]
 
 
 
