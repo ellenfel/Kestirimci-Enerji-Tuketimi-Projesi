@@ -47,7 +47,7 @@ ALTER TABLE last_veri DROP COLUMN key_id, DROP COLUMN telemetry;
 -- Select relevant columns from last_veri with filtering
 SELECT id, devName, key, ts, merged_column
 FROM last_veri
-WHERE devName <> 'UG-67';
+WHERE devName <> 'UG-67' AND POSITION('error' IN key) = 0;
 
 
 "
