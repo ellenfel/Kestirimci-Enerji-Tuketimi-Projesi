@@ -71,16 +71,28 @@ values_to_exclude = ['devName', 'rssi', 'Active Enegy-CL', 'Active Enegy-CH', 'd
 
 # Filter out rows where the value in the 'key' column is not in the list of values to exclude
 df = df[~df[column_name_to_check].isin(values_to_exclude)]
+df['value'] = df['value'].astype('float64')
+
+
+#for sampling
+#df_sample = df.head(10000)
+#unique_values = df_sample['key'].unique()
 
 
 
+df = pd.concat([df, pd.get_dummies(df['key'].str.lower())], axis=1)
+df = df.fillna(0)
+
+# Assign the values of the 'value' column to the corresponding columns
+for value in unique_values:
+    df[value.lower()] = df.apply(lambda row: row['value'] if row['key'].lower() == value.lower() else 0, axis=1)
+
+# Drop the original 'key' and 'value' columns
+df = df.drop(['key', 'value'], axis=1)
 
 
 
-df_sample = df.head(10000)
-unique_values = df_sample['key'].unique()
-df_sample = pd.concat([df_sample, pd.get_dummies(df_sample['key'].str.lower())], axis=1)
+merged_df = df.groupby(['device-name', 'ts'], as_index=False).agg(lambda x: x.max() if x.dtype == 'float64' else x.max())
+merged_df = df.groupby('device-name', as_index=False).max()
 
-
-
-
+merged_df.to_csv('../data/newest-clean-merged-data.csv', index=False)
