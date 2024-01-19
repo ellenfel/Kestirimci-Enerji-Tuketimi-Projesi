@@ -49,7 +49,7 @@ df.drop('111', axis=1, inplace=True)
 df = df[df[df.columns[0]] != 'UG-67'] #Bidakine sqlde yap
 
 """
-df.to_csv('../data/newest-clean-data.csv', index=False)
+#df.to_csv('../data/newest-clean-data.csv', index=False)
 df.drop('id', axis=1, inplace=True)
 
 
@@ -59,16 +59,27 @@ unique_values = [value for value in unique_values if 'error' not in str(value)]
 df = df[~df['key'].str.contains('error', case=False, na=False)]
 
 
+# Assuming the column name is 'key'
+column_name_to_check = 'key'
+
+# List of values to exclude
+values_to_exclude = ['devName', 'rssi', 'Active Enegy-CL', 'Active Enegy-CH', 'devEUI', 'Active Enegy-Ex',
+                      'snr', 'Active', 'time', 'Asset', 'delta', 'currentDelta_yss', 'currentDelta_ei',
+                      'load', 'maneuver', 'Active Energy-Import', 'a', 'Active Enegy-DL', 'Active Enegy-DH',
+                      'state', 'currentDelta_ecs', 'hardware_version', 'ipso_version', 'power', 'sn',
+                      'software_version','Active Enegy-Im','Active Energy-DL','Active Energy-DH']
+
+# Filter out rows where the value in the 'key' column is not in the list of values to exclude
+df = df[~df[column_name_to_check].isin(values_to_exclude)]
 
 
 
 
 
 
-
-
-
-
+df_sample = df.head(10000)
+unique_values = df_sample['key'].unique()
+df_sample = pd.concat([df_sample, pd.get_dummies(df_sample['key'].str.lower())], axis=1)
 
 
 
