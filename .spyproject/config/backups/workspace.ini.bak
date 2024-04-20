@@ -4,7 +4,7 @@ save_data_on_exit = True
 save_history = True
 save_non_project_files = False
 project_type = 'empty-project-type'
-recent_files = ['hull.py']
+recent_files = ['hull.py', '../machine-learning-open-papers/hotel_booking/dev_2.py', '../Machine-Learnng-Paper-Project/ml-paper.py']
 
 [main]
 version = 0.2.0
