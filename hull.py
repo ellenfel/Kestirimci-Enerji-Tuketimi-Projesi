@@ -53,7 +53,7 @@ df = df[df[df.columns[0]] != 'UG-67'] #Bidakine sqlde yap
 df.drop('id', axis=1, inplace=True)
 
 
-unique_values = df['key'].unique()
+unique_values = df['key'].unique() #gets all the keys other than error
 unique_values = [value for value in unique_values if 'error' not in str(value)]
 
 df = df[~df['key'].str.contains('error', case=False, na=False)]
